@@ -1,0 +1,205 @@
+*PPD-Adobe: "4.3"
+
+*%============================================================
+*% Brother QL-800 - Native ARM64 CUPS Driver
+*% Supports: 62mm die-cut and continuous DK labels
+*%============================================================
+
+*FormatVersion: "4.3"
+*FileVersion:   "1.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "QL800.PPD"
+*Manufacturer: "Brother"
+*Product: "(Brother QL-800)"
+*ModelName: "QL-800"
+*ShortNickName: "Brother QL-800"
+*NickName: "Brother QL-800 (ARM64)"
+*PSVersion: "(3010.000) 550"
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "1"
+*LandscapeOrientation: Plus90
+
+*% CUPS-specific
+*cupsVersion: 1.4
+*cupsModelNumber: 0
+*cupsManualCopies: False
+*cupsFilter: "application/vnd.cups-raster 50 rastertoql"
+*cupsLanguages: "en"
+
+*% ============================================================
+*% Resolution
+*% ============================================================
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 5 AnySetup *Resolution
+*DefaultResolution: 300dpi
+*Resolution 300dpi/300 DPI: "<</HWResolution[300 300]/cupsColorOrder 0/cupsColorSpace 3/cupsBitsPerColor 8>>setpagedevice"
+*CloseUI: *Resolution
+
+*% ============================================================
+*% Media Types
+*% ============================================================
+*OpenUI *MediaType/Label Type: PickOne
+*OrderDependency: 10 AnySetup *MediaType
+*DefaultMediaType: DK22206
+*MediaType DK22206/DK-22206 (62mm Continuous White): ""
+*MediaType DK22205/DK-22205 (62mm Continuous): ""
+*MediaType DK11209/DK-11209 (62mm x 29mm Die-Cut): ""
+*MediaType DK11202/DK-11202 (62mm x 100mm Die-Cut): ""
+*CloseUI: *MediaType
+
+*% ============================================================
+*% Auto Cut
+*% ============================================================
+*OpenUI *AutoCut/Auto Cut: PickOne
+*OrderDependency: 20 AnySetup *AutoCut
+*DefaultAutoCut: True
+*AutoCut True/Every Label and at End: ""
+*AutoCut EndOnly/At End of Job Only: ""
+*AutoCut False/Off: ""
+*CloseUI: *AutoCut
+
+*% ============================================================
+*% Horizontal Adjust — positive moves the print to the right
+*% ============================================================
+*OpenUI *HorizontalAdjust/Horizontal Adjust: PickOne
+*OrderDependency: 25 AnySetup *HorizontalAdjust
+*DefaultHorizontalAdjust: None
+*HorizontalAdjust Minus3/3mm Left: ""
+*HorizontalAdjust Minus2/2mm Left: ""
+*HorizontalAdjust Minus1/1mm Left: ""
+*HorizontalAdjust None/None: ""
+*HorizontalAdjust Plus1/1mm Right: ""
+*HorizontalAdjust Plus2/2mm Right: ""
+*HorizontalAdjust Plus3/3mm Right: ""
+*CloseUI: *HorizontalAdjust
+
+*% ============================================================
+*% Label Scale — shrinks the whole label before trimming it to the
+*% printable area (about 6mm top/bottom and 1.5mm sides on die-cut labels
+*% cannot be printed).  Leave the app's own Scale at 100%.
+*% ============================================================
+*OpenUI *LabelScale/Label Scale: PickOne
+*OrderDependency: 26 AnySetup *LabelScale
+*DefaultLabelScale: 98
+*LabelScale 100/100%: ""
+*LabelScale 98/98%: ""
+*LabelScale 96/96%: ""
+*LabelScale 95/95%: ""
+*LabelScale 92/92%: ""
+*LabelScale 90/90%: ""
+*LabelScale Fit/Fit Printable Area: ""
+*CloseUI: *LabelScale
+
+*% ============================================================
+*% Print Quality — sets the printer's "quality priority" flag
+*% ============================================================
+*OpenUI *PrintQuality/Print Quality: PickOne
+*OrderDependency: 27 AnySetup *PrintQuality
+*DefaultPrintQuality: Quality
+*PrintQuality Quality/Best Quality (slower): ""
+*PrintQuality Speed/Faster Printing: ""
+*CloseUI: *PrintQuality
+
+*% ============================================================
+*% Halftone / Brightness / Contrast — the page arrives as 8-bit grey
+*% and rastertoql converts it to black and white
+*% ============================================================
+*OpenUI *Halftone/Halftone: PickOne
+*OrderDependency: 28 AnySetup *Halftone
+*DefaultHalftone: ErrorDiffusion
+*Halftone Binary/For Logos and Text: ""
+*Halftone Dither/For Text and Graphics: ""
+*Halftone ErrorDiffusion/For Labels Containing Images: ""
+*CloseUI: *Halftone
+
+*OpenUI *Brightness/Brightness: PickOne
+*OrderDependency: 29 AnySetup *Brightness
+*DefaultBrightness: 0
+*Brightness -20/-20: ""
+*Brightness -15/-15: ""
+*Brightness -10/-10: ""
+*Brightness -5/-5: ""
+*Brightness 0/0: ""
+*Brightness 5/+5: ""
+*Brightness 10/+10: ""
+*Brightness 15/+15: ""
+*Brightness 20/+20: ""
+*CloseUI: *Brightness
+
+*OpenUI *Contrast/Contrast: PickOne
+*OrderDependency: 29 AnySetup *Contrast
+*DefaultContrast: 0
+*Contrast -20/-20: ""
+*Contrast -15/-15: ""
+*Contrast -10/-10: ""
+*Contrast -5/-5: ""
+*Contrast 0/0: ""
+*Contrast 5/+5: ""
+*Contrast 10/+10: ""
+*Contrast 15/+15: ""
+*Contrast 20/+20: ""
+*CloseUI: *Contrast
+
+*% ============================================================
+*% Page Sizes
+*% ============================================================
+
+*% --- Continuous: DK-22206 / DK-22205 62mm wide ---
+*% 62mm = 175.6pt, default length 200mm = 567pt
+*DefaultPaperDimension: DK22206
+*DefaultImageableArea: DK22206
+*PaperDimension DK22206/DK-22206 (62mm Continuous White): "175.68 567"
+*ImageableArea  DK22206/DK-22206 (62mm Continuous White): "0 0 175.68 567"
+
+*PaperDimension DK22205/DK-22205 (62mm Continuous): "175.68 567"
+*ImageableArea  DK22205/DK-22205 (62mm Continuous): "0 0 175.68 567"
+
+*% --- Die-cut: DK-11209 62mm x 29mm ---
+*PaperDimension DK11209/DK-11209 (62x29mm): "175.68 82.08"
+*ImageableArea  DK11209/DK-11209 (62x29mm): "0 0 175.68 82.08"
+
+*% --- Die-cut: DK-11202 62mm x 100mm ---
+*PaperDimension DK11202/DK-11202 (62x100mm): "175.68 283.44"
+*ImageableArea  DK11202/DK-11202 (62x100mm): "0 0 175.68 283.44"
+
+*OpenUI *PageSize/Label Size: PickOne
+*OrderDependency: 30 AnySetup *PageSize
+*DefaultPageSize: DK22206
+*PageSize DK22206/DK-22206 (62mm Continuous White): "<</PageSize[175.68 567]/ImagingBBox null>>setpagedevice"
+*PageSize DK22205/DK-22205 (62mm Continuous): "<</PageSize[175.68 567]/ImagingBBox null>>setpagedevice"
+*PageSize DK11209/DK-11209 (62x29mm): "<</PageSize[175.68 82.08]/ImagingBBox null>>setpagedevice"
+*PageSize DK11202/DK-11202 (62x100mm): "<</PageSize[175.68 283.44]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion: PickOne
+*OrderDependency: 30 AnySetup *PageRegion
+*DefaultPageRegion: DK22206
+*PageRegion DK22206/DK-22206 (62mm Continuous White): "<</PageSize[175.68 567]/ImagingBBox null>>setpagedevice"
+*PageRegion DK22205/DK-22205 (62mm Continuous): "<</PageSize[175.68 567]/ImagingBBox null>>setpagedevice"
+*PageRegion DK11209/DK-11209 (62x29mm): "<</PageSize[175.68 82.08]/ImagingBBox null>>setpagedevice"
+*PageRegion DK11202/DK-11202 (62x100mm): "<</PageSize[175.68 283.44]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*% ============================================================
+*% CUPS Raster settings — 1-bit K, 300dpi
+*% ============================================================
+
+*% ============================================================
+*% Constraints
+*% ============================================================
+*UIConstraints: *MediaType DK22206 *PageSize DK11209
+*UIConstraints: *MediaType DK22206 *PageSize DK11202
+*UIConstraints: *MediaType DK22205 *PageSize DK11209
+*UIConstraints: *MediaType DK22205 *PageSize DK11202
+*UIConstraints: *MediaType DK11209 *PageSize DK22206
+*UIConstraints: *MediaType DK11209 *PageSize DK22205
+*UIConstraints: *MediaType DK11202 *PageSize DK22206
+*UIConstraints: *MediaType DK11202 *PageSize DK22205
+
+*% ============================================================
+*% End of PPD
+*% ============================================================

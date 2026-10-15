@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# postinstall - run after .pkg installs files
+#
+# Sets correct ownership/permissions on the filter binary and restarts CUPS
+#
+
+set -e
+
+FILTER_DIR="/usr/libexec/cups/filter"
+FILTER="$FILTER_DIR/rastertoql"
+
+# Ensure the filter is owned by root and executable
+if [ -f "$FILTER" ]; then
+    chown root:wheel "$FILTER"
+    chmod 755 "$FILTER"
+fi
+
+# Restart CUPS so it picks up the new PPDs and filter
+if /bin/launchctl list org.cups.cupsd &>/dev/null; then
+    /bin/launchctl stop org.cups.cupsd  2>/dev/null || true
+    sleep 1
+    /bin/launchctl start org.cups.cupsd 2>/dev/null || true
+fi
+
+exit 0

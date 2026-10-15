@@ -1,0 +1,11 @@
+# Build output (filter binary, .pkg installer)
+build/
+
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
