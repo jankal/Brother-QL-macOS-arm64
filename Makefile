@@ -11,10 +11,13 @@
 #
 
 CC      = cc
-CFLAGS  = -O2 -arch arm64 -Wall -Wextra \
+# Oldest macOS that runs on Apple Silicon, so a .pkg built here works for
+# everyone rather than only on the build machine's macOS version
+MACOS_MIN = 11.0
+CFLAGS  = -O2 -arch arm64 -mmacosx-version-min=$(MACOS_MIN) -Wall -Wextra \
           -I/usr/include \
           -I$(shell xcrun --show-sdk-path)/usr/include
-LDFLAGS = -arch arm64 -lcups -L/usr/lib
+LDFLAGS = -arch arm64 -mmacosx-version-min=$(MACOS_MIN) -lcups -L/usr/lib
 
 FILTER_NAME = rastertoql
 SRCS        = src/rastertoql.c
@@ -91,8 +94,11 @@ pkg: build/$(FILTER_NAME)
 	cp pkg/postinstall $(PKG_DIR)/scripts/postinstall
 	chmod 755 $(PKG_DIR)/scripts/postinstall
 
+	# Strip extended attributes so no ._ AppleDouble files end up installed
+	xattr -cr $(PKG_ROOT) $(PKG_DIR)/scripts
+
 	# Build component package
-	pkgbuild \
+	COPYFILE_DISABLE=1 pkgbuild \
 		--root $(PKG_ROOT) \
 		--scripts $(PKG_DIR)/scripts \
 		--identifier $(PKG_ID) \
