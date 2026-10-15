@@ -45,11 +45,27 @@ not all been printed on real hardware. Please open an issue with what works
 - Xcode Command Line Tools: `xcode-select --install`
 - CUPS (included with macOS)
 
-## Build and install
+## Install from a release (easiest)
+
+1. Download `QL-Driver-ARM64-<version>.pkg` from the
+   [Releases page](https://github.com/chickey/Brother-QL-macOS-arm64/releases).
+2. Double-click it. The package isn't signed with an Apple Developer ID, so
+   macOS will say it can't verify the developer. Open
+   **System Settings → Privacy & Security**, scroll down and click
+   **Open Anyway**, then run the installer again. Alternatively, from Terminal:
+   ```bash
+   sudo installer -pkg ~/Downloads/QL-Driver-ARM64-1.0.pkg -target /
+   ```
+3. Add the printer as described below.
+
+The installer only runs on Apple Silicon Macs with macOS 11 or later; on an
+Intel Mac it stops with a message.
+
+## Build and install from source
 
 ```bash
-# Clone / download the project, then:
-cd ql-cups-driver
+git clone https://github.com/chickey/Brother-QL-macOS-arm64.git
+cd Brother-QL-macOS-arm64
 
 # Build the arm64 filter binary
 make
@@ -110,6 +126,8 @@ so content near the edges survives. `Fit` shrinks just enough that nothing is
 lost.
 
 ## Build a .pkg installer (optional)
+
+The package is restricted to Apple Silicon by `pkg/distribution.xml`.
 
 ```bash
 make pkg

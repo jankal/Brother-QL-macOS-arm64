@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Installer distribution for the .pkg built by `make pkg`.
+  @PKG_ID@ and @PKG_VERSION@ are filled in by the Makefile.
+
+  Installs only on Apple Silicon: hostArchitectures stops Installer on
+  Intel Macs, and requireAppleSilicon() shows a clear message (and also
+  covers `sudo installer` from the command line).
+-->
+<installer-gui-script minSpecVersion="2">
+    <title>Brother QL Driver (ARM64)</title>
+    <options customize="never" require-scripts="false" hostArchitectures="arm64"/>
+    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
+    <allowed-os-versions>
+        <os-version min="11.0"/>
+    </allowed-os-versions>
+
+    <installation-check script="requireAppleSilicon()"/>
+    <script><![CDATA[
+    function requireAppleSilicon() {
+        if (system.sysctl("hw.optional.arm64") != 1) {
+            my.result.type = "Fatal";
+            my.result.title = "Apple Silicon required";
+            my.result.message = "This driver only runs on Macs with Apple Silicon (M1 or later). " +
+                                "On an Intel Mac, use Brother's own driver instead.";
+            return false;
+        }
+        return true;
+    }
+    ]]></script>
+
+    <choices-outline>
+        <line choice="default">
+            <line choice="@PKG_ID@"/>
+        </line>
+    </choices-outline>
+    <choice id="default"/>
+    <choice id="@PKG_ID@" visible="false">
+        <pkg-ref id="@PKG_ID@"/>
+    </choice>
+    <pkg-ref id="@PKG_ID@" version="@PKG_VERSION@" onConclusion="none">ql-driver-component.pkg</pkg-ref>
+</installer-gui-script>

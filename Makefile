@@ -104,6 +104,14 @@ pkg: build/$(FILTER_NAME)
 		--identifier $(PKG_ID) \
 		--version $(PKG_VERSION) \
 		--ownership recommended \
+		$(PKG_DIR)/ql-driver-component.pkg
+
+	# Wrap it in a distribution that only installs on Apple Silicon
+	sed -e 's/@PKG_ID@/$(PKG_ID)/g' -e 's/@PKG_VERSION@/$(PKG_VERSION)/g' \
+		pkg/distribution.xml > $(PKG_DIR)/distribution.xml
+	productbuild \
+		--distribution $(PKG_DIR)/distribution.xml \
+		--package-path $(PKG_DIR) \
 		$(PKG_OUT)
 
 	@echo ""
